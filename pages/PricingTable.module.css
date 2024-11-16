@@ -1,0 +1,103 @@
+.pricingContainer {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  padding: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.row {
+  display: table-row;
+}
+
+.cell {
+  display: table-cell;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.headerRow {
+  background-color: #e9ecef;
+  font-weight: bold;
+}
+.round {
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  padding: 20px;
+}
+
+.planName {
+  font-size: 1.2rem;
+  color: #007bff;
+}
+
+.planPrice {
+  font-size: 1.5rem;
+  color: #28a745;
+  margin: 0.5rem 0;
+}
+
+.perMonth {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.cell:first-child {
+  text-align: left;
+}
+
+.cell:last-child {
+  font-weight: bold;
+}
+
+.cell span {
+  color: #28a745;
+}
+
+.checkmark {
+  color: #28a745;
+  font-weight: bold;
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .table {
+    display: block;
+  }
+  .row {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .cell {
+    display: block;
+    padding: 0.5rem;
+    text-align: left;
+  }
+  .headerRow .cell {
+    text-align: center;
+  }
+}

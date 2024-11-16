@@ -56,15 +56,25 @@
   display: flex;
   align-items: center; 
   gap: 10px; /* Optional: space between the images */
-  padding-left: 38px;
+  padding-left: 40px;
 
 }
-.socialIcons{
+.app{
   display: flex;
   align-items: center; 
-  gap: 10px;
-  padding-left: 50px;
+  gap: 10px; /* Optional: space between the images */
+  padding-left: 36px;
+
 }
+
+
+.socialIcons{
+  display: flex;
+  gap: 10px;
+  height: 1px;
+  width: 1px;
+}
+
 .footerBottom {
   display: flex;
   justify-content: space-between;
@@ -90,11 +100,12 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  padding-left: 40px;
 }
 
 /* Email input field styling */
 .emailInput {
-  padding: 4px;
+  padding-left: 4px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 7px;
@@ -109,7 +120,7 @@
 
 /* Button styling */
 .btn {
-  padding: 3px 20px;
+  
   font-size: 16px;
   background-color: #ff4081;
   color: white;

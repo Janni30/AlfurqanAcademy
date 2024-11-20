@@ -13,6 +13,24 @@ const BlogGrid = () => {
     let list = document.querySelectorAll(".single_box_");
     setstate(getPagination(list.length, sort));
   }, [active]);
+
+
+
+  const fetchBlogs = async () => {
+    const endpoint = 'http://localhost:3000/api/blogs';
+    const response = await fetch(endpoint);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    setBlogs(data.blogs || data);
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+
   return (
     <Layout>
       <Breadcumb pageName={"Blog Grid"} />
@@ -22,9 +40,9 @@ const BlogGrid = () => {
             <div className="col-lg-4 col-md-6 single_box_">
               <div className="single-blog-box">
                 <div className="single-blog-thumb">
-                  <img src="assets/images/resource/blog1.png" alt />
+                  <img src={data.image} alt />
                   <div className="blog-top-button">
-                    <a href="#"> GRAPHIC </a>
+                    <a href="#">{data.title}</a>
                   </div>
                 </div>
                 <div className="em-blog-content">

@@ -1,116 +1,128 @@
 'use client';
 
-import { assets } from '@/Assets/assets';
 import axios from 'axios';
-import Image from 'next/image';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import styles from './addBlog.module.css'; 
+import styles from './addBlog.module.css';
 
-const Page = () => {
-  const [image, setImage] = useState(false);
+const AddBlog = () => {
   const [data, setData] = useState({
     title: '',
-    description: '',
-    category: 'Startup',
-    author: 'Alex Bennett',
-    authorImg: '/author_img.png',
+    content: '',
+    author: '',
+    image: '', // Will store the base64-encoded image
   });
 
+  // Handle input field changes
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setData((prev) => ({ ...prev, [name]: value }));
-    console.log(data);
+    console.log(`[DEBUG] Updated field "${name}": ${value}`);
   };
 
+  // Handle image selection and convert to base64
+  const onImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setData((prev) => ({ ...prev, image: reader.result }));
+        console.log('[DEBUG] Selected image (base64):', reader.result);
+      };
+      reader.readAsDataURL(file); // Convert image to base64
+    }
+  };
+
+  // Handle form submission
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append('title', data.title);
-      formData.append('description', data.description);
-      formData.append('category', data.category);
-      formData.append('author', data.author);
-      formData.append('authorImg', data.authorImg);
-      formData.append('image', image);
 
-      const response = await axios.post('/api/blog', formData);
-      if (response.data.success) {
-        toast.success(response.data.msg);
-        setImage(false);
-        setData({
-          title: '',
-          description: '',
-          category: 'Startup',
-          author: 'Alex Bennett',
-          authorImg: '/author_img.png',
-        });
+    // Validate required fields
+    if (!data.title || !data.content || !data.author || !data.image) {
+      toast.error('All fields (title, content, author, and image) are required');
+      console.log('[DEBUG] Validation failed: Missing fields');
+      return;
+    }
+
+    try {
+      // Send POST request
+      const response = await axios.post('http://localhost:3000/api/blogs', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // Handle response
+      if (response.status === 201) {
+        toast.success('Blog added successfully!');
+        console.log('[DEBUG] Blog added:', response.data);
+        setData({ title: '', content: '', author: '', image: '' });
       } else {
-        toast.error('Error');
+        toast.error('Error adding blog');
+        console.log('[DEBUG] Unexpected response:', response);
       }
     } catch (error) {
-      console.error(error);
-      toast.error('Something went wrong!');
+      console.error('[DEBUG] Error during blog submission:', error.response || error.message);
+      toast.error('Failed to add blog. Please try again.');
     }
   };
 
   return (
     <>
       <form onSubmit={onSubmitHandler} className={`${styles.form} ${styles.formSm}`}>
-        <p className={styles.title}>Upload thumbnail</p>
+        {/* Image Upload */}
+        <p className={styles.title}>Upload Thumbnail</p>
         <label htmlFor="image" className={styles.label}>
-          <Image
-            className={styles.imageUpload}
-            src={!image ? assets.upload_area : URL.createObjectURL(image)}
+          <img
+            className={styles.image}
+            src={data.image || '/'} // Placeholder if no image is selected
+            alt="Thumbnail"
             width={140}
             height={70}
-            alt="Thumbnail"
           />
         </label>
-        <input
-          onChange={(e) => setImage(e.target.files[0])}
-          type="file"
-          id="image"
-          hidden
-          required
-        />
-        <p className={styles.title}>Blog title</p>
+        <input onChange={onImageChange} type="file" id="image" hidden />
+
+        {/* Blog Title */}
+        <p className={styles.title}>Blog Title</p>
         <input
           name="title"
           onChange={onChangeHandler}
           value={data.title}
           className={styles.input}
           type="text"
-          placeholder="Type here"
-          required
+          placeholder="Enter title"
         />
-        <p className={styles.title}>Blog Description</p>
+
+        {/* Blog Content */}
+        <p className={styles.content}>Blog Description</p>
         <textarea
-          name="description"
+          name="content"
           onChange={onChangeHandler}
-          value={data.description}
+          value={data.content}
           className={`${styles.input} ${styles.textarea}`}
-          placeholder="Write content here"
+          placeholder="Enter content"
           rows={6}
-          required
         />
-        <p className={styles.title}>Blog category</p>
-        <select
-          name="category"
+
+        {/* Blog Author */}
+        <p className={styles.author}>Author</p>
+        <input
+          name="author"
           onChange={onChangeHandler}
-          value={data.category}
-          className={styles.select}
-        >
-          <option value="Startup">Startup</option>
-          <option value="Technology">Technology</option>
-          <option value="Lifestyle">Lifestyle</option>
-        </select>
+          value={data.author}
+          className={styles.input}
+          type="text"
+          placeholder="Enter author name"
+        />
+
+        {/* Submit Button */}
         <button type="submit" className={styles.button}>
-          ADD
+        Add Blog 
         </button>
       </form>
     </>
   );
 };
 
-export default Page;
+export default AddBlog;

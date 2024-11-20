@@ -1,15 +1,70 @@
 .pricingContainer {
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
-  padding: 2rem;
+  padding: 8rem;
   text-align: center;
 }
 
 .title {
   font-size: 2rem;
   font-weight: bold;
-  color: #333;
+  color: #f6f5f5;
 }
+
+
+.round {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Ensure it's a square */
+  border-radius: 50%; /* Makes it circular */
+  display: flex; /* Center content inside the circle */
+  justify-content: center; /* Horizontally center content */
+  align-items: center; /* Vertically center content */
+  background-color: #E63946; /* Example background color */
+  color: white; /* Text color */
+  font-size: 16px; /* Adjust text size as needed */
+  font-weight: bold; /* Make text bold */
+  margin: 0 auto; /* Center the circle in its container */
+}
+.polygon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px; /* Adjust the size as needed */
+  height: 100px; /* Proportional height for a hexagon */
+  background-color: #ddd; /* Example background color */
+  color: white; /* Text color */
+  font-size: 16px; /* Adjust text size */
+  font-weight: bold; /* Bold text */
+  text-align: center;
+}
+ 
+ 
+.polygon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 190px; /* Adjust width */
+  height: 100px; /* Adjust height */
+  background-color: #161d25; /* Background color */
+  color: white; /* Text color */
+  font-size: 16px; /* Adjust text size */
+  font-weight: bold; /* Bold text */
+  text-align: center;
+  clip-path: polygon(
+    50% 0%, 
+    10% 90%, 
+    50% 80%, 
+    90% 90%
+  ); /* Adjusted for rounded effect */
+  transform: rotate(180deg); /* Rotate the shape */
+  margin: 0 auto; /* Center the shape */
+}
+
+    
+  
+ 
+
+
 
 .subtitle {
   font-size: 1rem;
@@ -34,6 +89,7 @@
   border: 1px solid #ddd;
   vertical-align: middle;
   text-align: center;
+  color: #E63946;
 }
 
 .headerRow {
@@ -41,19 +97,20 @@
   font-weight: bold;
 }
 .round {
-  border: 2px solid #007bff;
+  border: 2px solid #161d25;
   border-radius: 50%;
-  padding: 20px;
+  padding: 65px;
 }
 
 .planName {
-  font-size: 1.2rem;
-  color: #007bff;
+  font-size: 2 0px;
+  color: #f5f9ff;
+  margin-bottom: 22px;
 }
 
 .planPrice {
-  font-size: 1.5rem;
-  color: #28a745;
+  font-size: 2.5rem;
+  color: #eef3ef;
   margin: 0.5rem 0;
 }
 
@@ -71,11 +128,11 @@
 }
 
 .cell span {
-  color: #28a745;
+  color: #f8fbf9;
 }
 
 .checkmark {
-  color: #28a745;
+  color: #ecf3ee;
   font-weight: bold;
 }
 
